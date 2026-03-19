@@ -17,7 +17,7 @@ export default defineConfig({
         text: 'บทเรียน',
         items: [
           { text: 'วันที่ 1 — HTML & Portfolio แรก', link: '/day1' },
-          { text: 'วันที่ 2 — CSS & Responsive (เร็วๆ นี้)', link: '/day1' },
+          { text: 'วันที่ 2 — CSS & Responsive', link: '/day2' },
           { text: 'วันที่ 3 — รูปภาพ ลิงก์ & ฉบับสมบูรณ์ (เร็วๆ นี้)', link: '/day1' },
           { text: 'วันที่ 4 — การประเมินผล (เร็วๆ นี้)', link: '/day1' },
         ]
@@ -36,7 +36,7 @@ export default defineConfig({
         text: '📚 บทเรียนแต่ละวัน',
         items: [
           { text: '📌 วันที่ 1 — HTML & Portfolio แรก', link: '/day1' },
-          { text: '🔒 วันที่ 2 — CSS & Responsive', link: '/day1' },
+          { text: '📌 วันที่ 2 — CSS & Responsive', link: '/day2' },
           { text: '🔒 วันที่ 3 — รูปภาพ ลิงก์ & ฉบับสมบูรณ์', link: '/day1' },
           { text: '🔒 วันที่ 4 — การประเมินผล', link: '/day1' },
         ]
