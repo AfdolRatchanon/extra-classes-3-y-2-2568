@@ -267,44 +267,153 @@ space-around:    · [A] · · [B] · · [C] ·
 
 ### 4. CSS Transition & Hover Effect
 
-Transition ทำให้การเปลี่ยนแปลงเกิดขึ้นแบบ smooth ไม่กระตุก
+#### Transition คืออะไร?
 
-```css
-/* รูปแบบ: transition: property duration timing-function */
-/*                      ↑สิ่งที่เปลี่ยน ↑ความเร็ว  ↑ลักษณะการเปลี่ยน */
+ปกติเมื่อ CSS property เปลี่ยนค่า (เช่น เมื่อ hover) มันจะเปลี่ยนทันทีแบบกระตุก
+`transition` คือการบอกให้ CSS **ค่อยๆ เปลี่ยน** ในระยะเวลาที่กำหนด
 
-transition: all 0.3s ease;              /* เปลี่ยนทุก property */
-transition: background 0.2s linear;     /* เปลี่ยนแค่สีพื้นหลัง */
-transition: transform 0.3s ease, box-shadow 0.3s ease;  /* หลาย property */
+```
+ไม่มี transition:   [ปกติ] → กระตุก! → [hover]
+มี transition:      [ปกติ] → smooth → → → [hover]
 ```
 
+#### โครงสร้าง transition
+
 ```css
-/* ตัวอย่าง: Card ที่ลอยขึ้นเมื่อ hover */
+transition: property   duration  timing-function  delay;
+/*          ↑สิ่งที่เปลี่ยน ↑ความเร็ว ↑ลักษณะการเปลี่ยน ↑หน่วงก่อนเริ่ม */
+
+/* ตัวอย่าง */
+transition: background  0.3s     ease             0s;
+```
+
+**property** — บอกว่าอยากให้ transition ตอน property ไหนเปลี่ยน:
+```css
+transition: all 0.3s ease;                          /* ทุก property */
+transition: background-color 0.3s ease;             /* แค่สีพื้นหลัง */
+transition: transform 0.3s ease, box-shadow 0.3s;   /* หลาย property */
+```
+
+**duration** — ความเร็วของ transition:
+```css
+transition: all 0.1s ease;   /* เร็วมาก แทบไม่เห็น */
+transition: all 0.3s ease;   /* พอดี รู้สึก smooth */
+transition: all 1s ease;     /* ช้า เหมาะกับ animation */
+```
+
+**timing-function** — ลักษณะการเปลี่ยน:
+
+| ค่า | ลักษณะ | เหมาะกับ |
+|---|---|---|
+| `ease` | เร็วตรงกลาง ช้าหัวท้าย (default) | ทั่วไป |
+| `linear` | ความเร็วสม่ำเสมอ | Loading bar |
+| `ease-in` | ช้าก่อน เร็วทีหลัง | ของเข้ามา |
+| `ease-out` | เร็วก่อน ช้าทีหลัง | ของออกไป |
+| `ease-in-out` | ช้า-เร็ว-ช้า | Modal เปิด/ปิด |
+
+---
+
+#### Hover Effect คืออะไร?
+
+`:hover` คือ pseudo-class ที่ CSS ใช้งานเมื่อผู้ใช้ **วางเมาส์** (หรือ **แตะ** บนมือถือ) บน element นั้น
+
+```css
+/* โครงสร้าง: .ชื่อ-class:hover { ... } */
+.card:hover {
+  /* CSS ที่ใช้เมื่อ hover */
+}
+```
+
+::: warning มือถือกับ Hover
+บนมือถือไม่มีเมาส์ → `:hover` จะทำงานเมื่อ **แตะ** แทน แต่บางครั้ง browser มือถืออาจแสดงผล hover ไม่สมบูรณ์ ควรทดสอบบนเครื่องจริงด้วย
+:::
+
+---
+
+#### Transition ใช้งานร่วมกับ Hover
+
+กฎสำคัญ: **ต้องใส่ `transition` ในสถานะปกติ ไม่ใช่ใน `:hover`**
+
+```css
+/* ✅ ถูกต้อง — transition อยู่ที่สถานะปกติ */
 .card {
-  border-radius: 12px;
-  padding: 20px;
+  background: white;
+  transition: all 0.3s ease;   /* ← ตรงนี้ */
+}
+.card:hover {
+  background: #f0f0ff;
+}
+
+/* ❌ ผิด — ถ้าใส่ transition ใน :hover จะ smooth ขาเข้า แต่กระตุกขาออก */
+.card:hover {
+  background: #f0f0ff;
+  transition: all 0.3s ease;   /* ← ไม่ควรอยู่ตรงนี้ */
+}
+```
+
+---
+
+#### ตัวอย่าง Effect ที่ใช้บ่อยใน Portfolio
+
+```css
+/* ① Card ลอยขึ้นพร้อมเงา */
+.card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .card:hover {
-  transform: translateY(-4px);              /* ลอยขึ้น 4px */
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15); /* เงาชัดขึ้น */
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
-/* Badge ที่เปลี่ยนสีเมื่อ hover */
+/* ② Badge เปลี่ยนสีกลับ (invert) */
 .badge {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
   transition: all 0.2s ease;
 }
-
 .badge:hover {
   background: var(--primary);
   color: white;
   cursor: pointer;
 }
+
+/* ③ ปุ่มขยายขึ้นเมื่อ hover */
+.btn {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.btn:hover {
+  transform: scale(1.05);   /* ขยาย 5% */
+  opacity: 0.9;
+}
+
+/* ④ ลิงก์ขีดเส้นใต้แบบ smooth */
+.link {
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.link:hover {
+  border-bottom-color: var(--primary);
+}
+```
+
+#### transform ที่นิยมใช้กับ Hover
+
+```css
+transform: translateY(-6px);    /* เลื่อนขึ้น 6px */
+transform: translateX(4px);     /* เลื่อนขวา 4px */
+transform: scale(1.05);         /* ขยาย 5% */
+transform: scale(0.95);         /* หดลง 5% */
+transform: rotate(5deg);        /* หมุน 5 องศา */
 ```
 
 ::: tip บอกใน Prompt ว่า
-`card ลอยขึ้นเมื่อแตะ` หรือ `มี hover effect ที่ badge` — AI จะใส่ transition ให้
+- `card ลอยขึ้นเมื่อแตะพร้อมเงา`
+- `badge เปลี่ยนสีเมื่อ hover`
+- `ปุ่มขยายเล็กน้อยเมื่อ hover`
+
+AI จะใส่ transition และ transform ให้ครบถ้วน
 :::
 
 ---
