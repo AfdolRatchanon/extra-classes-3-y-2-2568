@@ -20,17 +20,23 @@ features:
     link: /day1
     linkText: เริ่มเรียน
 
-  - icon: 🔒
+  - icon: 🎨
     title: วันที่ 2 — CSS & Responsive Design
-    details: เร็วๆ นี้ — จะเปิดให้เข้าถึงในวันที่ 2 ของหลักสูตร
+    details: เรียนรู้การตกแต่งด้วย CSS, Google Fonts, CSS Variables, Flexbox และ Hover Effect
+    link: /day2
+    linkText: เริ่มเรียน
 
-  - icon: 🔒
+  - icon: 🖼️
     title: วันที่ 3 — รูปภาพ ลิงก์ & ฉบับสมบูรณ์
-    details: เร็วๆ นี้ — จะเปิดให้เข้าถึงในวันที่ 3 ของหลักสูตร
+    details: เพิ่มรูปภาพและลิงก์โซเชียลมีเดีย สร้าง Portfolio ฉบับสมบูรณ์พร้อมส่งงาน
+    link: /day3
+    linkText: เริ่มเรียน
 
-  - icon: 🔒
+  - icon: 📝
     title: วันที่ 4 — การประเมินผล
-    details: เร็วๆ นี้ — จะเปิดให้เข้าถึงในวันที่ 4 ของหลักสูตร
+    details: ทบทวนเนื้อหาทั้งหมดและเตรียมตัวสอบปรนัย 30–40 ข้อ ผ่าน Google Forms
+    link: /day4
+    linkText: ดูรายละเอียด
 ---
 
 ## 📋 ข้อมูลหลักสูตร
